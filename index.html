@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <link rel="stylesheet" type="text/css" href="mungaistyle.css">
+
+        <style>
+            .gallery {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    display: flex; /* Changed from inline-block to flex */
+    align-items: center; /* Vertically center items */
+    background: #f9f9f9;
+    text-align: left; /* Optional: aligns text to the left */
+}
+.image-container {
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    margin-right: 12px; /* Space between image and text */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 0; /* Remove bottom margin for horizontal layout */
+}
+.text-container {
+    background: #f0f0f0;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 0; /* Remove top margin for horizontal layout */
+}
+        
+        .desc {
+            font-size: 14px;
+            color: #555;
+        }
+        .image-container {
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.text-container {
+    background: #f0f0f0;
+    padding: 6px;
+    border-radius: 6px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555;
+}
+            
+        </style>
+        </head>
+        <body>
+             <!-- Dropdown Menu Start -->
+<nav>
+    <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+            <a href="index.html">Home</a>
+            <a href="tags.html">Tags</a>
+            <a href="about.html">About</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+            <a href="projects.html">Projects</a>
+            <a href="notes.html">Notes</a>
+            <a href="resources.html">Resources</a>
+            <!-- Add more links as needed -->
+        </div>
+    </div>
+</nav>
+    <!-- Dropdown Menu End -->
+
+    <div id="article"></div>
+    <!-- ...existing script... -->
+            <h1>
+                I am
+            </h1>
+            <p>I am trying my hand at a digital garden. I'll simply share the ideas and activities that I do. Nothing here is the end all be all. I am simply growing.
+
+            </p>
+            
+<div class="toc">
+    <a href="article.html?title=Come%20to%20the%20Table%20(Part%201)">Come to the Table (Part 1)</a>
+    <a href="article.html?title=Because%20or%20by%20cause">Because or by cause</a>
+    <a href="article.html?title=Prayer%20and%20Fasting">Prayer and Fasting</a>
+    <!--<a href="gallery.html">Gallery</a>-->
+    <a href="projects.html">Projects</a>
+    <a href="notes.html">Notes</a>
+    <!-- <a href="resources.html">Resources</a> -->
+    <a href="about.html">About</a>
+    <!--<a href="contact.html">Contact</a> -->
+    <!-- Add more links as needed -->
+</div>
+<h2>
+                Photography
+
+
+            </h2>
+          
+<!-- Gallery for test.md article -->
+<div class="gallery" data-md="test.md">
+    <div class="image-container">
+        <!-- Optionally add an image here -->
+    </div>
+    <div class="text-container desc">
+        <a href="article.html?title=test">test</a>
+        <div class="subtitle-preview"></div>
+        <div class="tags"></div>
+    </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script>
+document.querySelectorAll('.gallery').forEach(gallery => {
+    const mdFile = gallery.getAttribute('data-md');
+    if (mdFile) {
+        fetch(mdFile)
+            .then(response => response.text())
+            .then(md => {
+                // Extract YAML front matter
+                const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
+                let tags = [];
+                if (yamlMatch) {
+                    const yamlContent = yamlMatch[1];
+                    const yamlData = jsyaml.load(yamlContent);
+                    if (yamlData && yamlData.tags) {
+                        tags = yamlData.tags;
+                    }
+                }
+                // Display tags
+                const tagsDiv = gallery.querySelector('.tags');
+                if (tagsDiv && tags.length) {
+                    tagsDiv.innerHTML = tags.map(tag =>
+                        `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`
+                    ).join('');
+                }
+            });
+    }
+});
+
+</script>
+        </body>
+</html>
