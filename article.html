@@ -54,87 +54,110 @@
             // Add more articles as needed
         ];
 
-        // Get article title from URL
-        const params = new URLSearchParams(window.location.search);
-        const title = params.get('title');
-        const articleDiv = document.getElementById('article');
-        const article = articles.find(a => a.title === title);
-
-       if (article) {
-        document.title = article.title;
-        fetch(article.mdFile)
-            .then(response => response.text())
-           .then(md => {
-    // Extract YAML front matter
-    let yamlTags = article.tags;
-    const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
-    if (yamlMatch) {
-        const yamlContent = yamlMatch[1];
-        const yamlData = jsyaml.load(yamlContent);
-        if (yamlData && yamlData.tags) {
-            yamlTags = yamlData.tags;
+        // Dynamically update tags from YAML in each article's mdFile
+        async function updateArticleTagsFromYAML(articles) {
+            for (const article of articles) {
+                if (article.mdFile) {
+                    try {
+                        const response = await fetch(article.mdFile);
+                        const md = await response.text();
+                        const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
+                        if (yamlMatch) {
+                            const yamlData = jsyaml.load(yamlMatch[1]);
+                            if (yamlData && yamlData.tags) {
+                                article.tags = yamlData.tags;
+                            }
+                        }
+                    } catch (e) {
+                        // Ignore errors, leave tags as is
+                    }
+                }
+            }
         }
-        // Remove YAML from markdown
-        md = md.replace(/^---\n[\s\S]*?\n---/, '').trim();
-    }
 
-    // Convert markdown to HTML
-    let html = marked.parse(md);
+        // Main logic: update tags, then render article
+        updateArticleTagsFromYAML(articles).then(() => {
+            const params = new URLSearchParams(window.location.search);
+            const title = params.get('title');
+            const articleDiv = document.getElementById('article');
+            const article = articles.find(a => a.title === title);
 
-    // Process [[internal links]]
-    html = html.replace(/\[\[([^\]]+)\]\]/g, (match, p1) => {
-        const urlTitle = encodeURIComponent(p1.trim());
-        return `<a href="article.html?title=${urlTitle}">${p1.trim()}</a>`;
-    });
+            if (article) {
+                document.title = article.title;
+                fetch(article.mdFile)
+                    .then(response => response.text())
+                    .then(md => {
+                        // Extract YAML front matter
+                        let yamlTags = article.tags;
+                        const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
+                        if (yamlMatch) {
+                            const yamlContent = yamlMatch[1];
+                            const yamlData = jsyaml.load(yamlContent);
+                            if (yamlData && yamlData.tags) {
+                                yamlTags = yamlData.tags;
+                            }
+                            // Remove YAML from markdown
+                            md = md.replace(/^---\n[\s\S]*?\n---/, '').trim();
+                        }
 
-    // After marked.parse(md)
-let footnotes = [];
-let footnoteIndex = 1;
+                        // Convert markdown to HTML
+                        let html = marked.parse(md);
 
-// Replace ^[footnote text] with numbered superscript links
-html = html.replace(/\^\[([^\]]+)\]/g, (match, p1) => {
-    const num = footnoteIndex++;
-    footnotes.push({ num, text: p1 });
-    return `<sup class="footnote"><a href="#footnote-${num}" id="ref-${num}">[${num}]</a></sup>`;
-});
+                        // Process [[internal links]]
+                        html = html.replace(/\[\[([^\]]+)\]\]/g, (match, p1) => {
+                            const urlTitle = encodeURIComponent(p1.trim());
+                            return `<a href="article.html?title=${urlTitle}">${p1.trim()}</a>`;
+                        });
 
-// ...existing internal links replacement...
+                        // After marked.parse(md)
+                        let footnotes = [];
+                        let footnoteIndex = 1;
 
-// At the end, add the footnote section if any footnotes exist
-let footnoteSection = '';
-if (footnotes.length) {
-    footnoteSection = `
-        <hr>
-        <section class="footnotes">
-            <h3>Footnotes</h3>
-            <ol>
-                ${footnotes.map(f => 
-                    `<li id="footnote-${f.num}">${f.text} <a href="#ref-${f.num}">&#8617;</a></li>`
-                ).join('')}
-            </ol>
-        </section>
-    `;
-}
+                        // Replace ^[footnote text] with numbered superscript links
+                        html = html.replace(/\^\[([^\]]+)\]/g, (match, p1) => {
+                            const num = footnoteIndex++;
+                            footnotes.push({ num, text: p1 });
+                            return `<sup class="footnote"><a href="#footnote-${num}" id="ref-${num}">[${num}]</a></sup>`;
+                        });
 
-// Insert into page
-articleDiv.innerHTML = `
-    <div class="article-content">
-        <h2>${article.title}</h2>
-        <p><em>${article.subtitle}</em></p>
-        <div class="tags">
-            ${yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('')}
-        </div>
-        <div class="full-content">${html}${footnoteSection}</div>
-    </div>
-`;
-})
-           .catch((error) => {
-    console.log(error); // This will log the error to the browser console
-    articleDiv.innerHTML = "<p>Could not load article content.</p>";
-});
-    } else {
-        articleDiv.innerHTML = "<p>Article not found.</p>";
-    }
+                        // ...existing internal links replacement...
+
+                        // At the end, add the footnote section if any footnotes exist
+                        let footnoteSection = '';
+                        if (footnotes.length) {
+                            footnoteSection = `
+                                <hr>
+                                <section class="footnotes">
+                                    <h3>Footnotes</h3>
+                                    <ol>
+                                        ${footnotes.map(f => 
+                                            `<li id="footnote-${f.num}">${f.text} <a href="#ref-${f.num}">&#8617;</a></li>`
+                                        ).join('')}
+                                    </ol>
+                                </section>
+                            `;
+                        }
+
+                        // Insert into page
+                        articleDiv.innerHTML = `
+                            <div class="article-content">
+                                <h2>${article.title}</h2>
+                                <p><em>${article.subtitle}</em></p>
+                                <div class="tags">
+                                    ${yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('')}
+                                </div>
+                                <div class="full-content">${html}${footnoteSection}</div>
+                            </div>
+                        `;
+                    })
+                    .catch((error) => {
+                        console.log(error); // This will log the error to the browser console
+                        articleDiv.innerHTML = "<p>Could not load article content.</p>";
+                    });
+            } else {
+                articleDiv.innerHTML = "<p>Article not found.</p>";
+            }
+        });
     </script>
 </body>
 </html>
