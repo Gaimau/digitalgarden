@@ -16,9 +16,32 @@
     <script>
     // List of articles with mdFile property for dynamic tag extraction
     const articles = [
-        // Example:
-        // { title: "Izu peninsula (Cherry Blossoms)", mdFile: "The Izu peninsula (Cherry Blossoms).md", url: "article.html?title=Izu%20peninsula%20(Cherry%20Blossoms)" },
-        // Add all your articles here with mdFile and url
+        {
+            title: "It Costs More Than You Think",
+            mdFile: "itcostsmorethanyouthink.md",
+            url: "article.html?title=It%20Costs%20More%20Than%20You%20Think"
+        },
+        {
+            title: "The Izu Peninsula (Introduction)",
+            mdFile: "The Izu Peninsula (Introduction).md",
+            url: "article.html?title=The%20Izu%20Peninsula%20(Introduction)"
+        },
+        {
+            title: "Call Me",
+            mdFile: "Call Me.md",
+            url: "article.html?title=Call%20Me"
+        },
+        {
+            title: "Calls",
+            mdFile: "Calls.md",
+            url: "article.html?title=Calls"
+        },
+        {
+            title: "The Izu Peninsula (Introduction) copy",
+            mdFile: "The Izu Peninsula (Introduction) copy.md",
+            url: "article.html?title=The%20Izu%20Peninsula%20(Introduction)%20copy"
+        }
+        // Add more articles as needed
     ];
 
     async function collectTags() {

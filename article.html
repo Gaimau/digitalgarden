@@ -79,6 +79,10 @@
                         // Remove YAML from markdown
                         md = md.replace(/^---\n[\s\S]*?\n---/, '').trim();
                     }
+                    // Fallback: if no tags in YAML, use article.tags property
+                    if ((!yamlTags || !yamlTags.length) && article.tags && article.tags.length) {
+                        yamlTags = article.tags;
+                    }
 
                     // Convert markdown to HTML
                     let html = marked.parse(md);
@@ -121,17 +125,15 @@
                         ? `<pre id="yaml-section">---\n${yamlContent}\n---</pre>`
                         : "";
 
-                    // Insert into page, only show tags section if tags exist, and show YAML if present
+                    // Insert into page, always show tags section (even if empty), and show YAML if present
                     articleDiv.innerHTML = `
                         <div class="article-content">
                             <h2>${article.title}</h2>
                             <p><em>${article.subtitle}</em></p>
                             ${yamlBlock}
-                            ${yamlTags && yamlTags.length ? `
                             <div class="tags">
-                                ${yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('')}
+                                ${yamlTags && yamlTags.length ? yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('') : '<span style="color:#aaa;">No tags</span>'}
                             </div>
-                            ` : ''}
                             <div class="full-content">${html}${footnoteSection}</div>
                         </div>
                     `;
