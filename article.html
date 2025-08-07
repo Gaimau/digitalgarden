@@ -116,14 +116,16 @@
                         `;
                     }
 
-                    // Insert into page
+                    // Insert into page, only show tags section if tags exist
                     articleDiv.innerHTML = `
                         <div class="article-content">
                             <h2>${article.title}</h2>
                             <p><em>${article.subtitle}</em></p>
+                            ${yamlTags && yamlTags.length ? `
                             <div class="tags">
                                 ${yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('')}
                             </div>
+                            ` : ''}
                             <div class="full-content">${html}${footnoteSection}</div>
                         </div>
                     `;
