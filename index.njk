@@ -1,0 +1,45 @@
+---
+layout: layout.njk
+---
+
+<h1>Table of Contents</h1>
+
+<div>
+  <label for="tag-filter">Filter by tag:</label>
+  <select id="tag-filter" onchange="filterByTag()">
+    <option value="">All</option>
+    {% for tag in collections.tags | unique | sort %}
+      <option value="{{ tag }}">{{ tag }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div style="display: flex; gap: 2rem;">
+  <div style="flex: 1;">
+    <ul id="toc-col1">
+      {% for page in collections.allMarkdown | slice(0, collections.allMarkdown.length / 2 | round(0, 'floor')) %}
+        <li data-tags="{{ (page.data.tags or []) | join(',') }}"><a href="{{ page.url }}">{{ page.data.title or page.fileSlug }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div style="flex: 1;">
+    <ul id="toc-col2">
+      {% for page in collections.allMarkdown | slice(collections.allMarkdown.length / 2 | round(0, 'floor')) %}
+        <li data-tags="{{ (page.data.tags or []) | join(',') }}"><a href="{{ page.url }}">{{ page.data.title or page.fileSlug }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>
+function filterByTag() {
+  const tag = document.getElementById('tag-filter').value;
+  document.querySelectorAll('li[data-tags]').forEach(li => {
+    if (!tag || li.dataset.tags.includes(tag)) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+}
+</script>

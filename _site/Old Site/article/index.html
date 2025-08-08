@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="mungaistyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Article</title>
+    <style>
+        .article-content { margin: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .tags { margin-top: 10px; }
+        .tag { background: #e0e0e0; border-radius: 12px; padding: 2px 10px; margin-right: 4px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div id="article"></div>
+    <script>
+        // Same articles array as in tags.html
+        const articles = [
+            {
+                title: "It Costs More Than You Think",
+                tags: [],
+                subtitle: "",
+                url: "article.html?title=It%20Costs%20More%20Than%20You%20Think",
+                mdFile: "itcostsmorethanyouthink.md"
+            },
+            {
+                title: "The Izu Peninsula (Introduction)",
+                tags: ["Japan"],
+                subtitle: "An introduction to the Izu Peninsula.",
+                url: "article.html?title=The%20Izu%20Peninsula%20(Introduction)",
+                mdFile: "The Izu Peninsula (Introduction).md"
+            },
+            {
+                title: "Call Me",
+                tags: ["Photography"], // Will be dynamically updated from YAML
+                subtitle: "The day my viewpoint changed forever.",
+                url: "article.html?title=Call%20Me",
+                mdFile: "Call Me.md"
+            },
+            { 
+                title: "Calls", 
+                tags: [], 
+                subtitle: "A different perspective.",
+                url: "article.html?title=Calls",
+                mdFile: "Calls.md"
+            },
+            { 
+                title: "The Izu Peninsula (Introduction) copy", 
+                tags: [],
+                subtitle: "A different perspective.",
+                url: "article.html?title=The%20Izu%20Peninsula%20(Introduction)%20copy",
+                mdFile: "The Izu Peninsula (Introduction) copy.md"
+            }
+            // Add more articles as needed
+        ];
+
+        // Main logic: fetch markdown, extract YAML, set tags, then render
+        (async function() {
+            const params = new URLSearchParams(window.location.search);
+            // Use mdFile as the lookup key
+            const mdFileParam = params.get('mdFile');
+            const articleDiv = document.getElementById('article');
+            const article = articles.find(a => a.mdFile === mdFileParam);
+
+            if (article && article.mdFile) {
+                document.title = article.title;
+                try {
+                    const response = await fetch(article.mdFile);
+                    let md = await response.text();
+                    // Extract YAML front matter
+                    let yamlTags = [];
+                    const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
+                    if (yamlMatch) {
+                        const yamlContent = yamlMatch[1];
+                        const yamlData = jsyaml.load(yamlContent);
+                        if (yamlData && yamlData.tags) {
+                            yamlTags = yamlData.tags;
+                            article.tags = yamlTags; // Set tags on the article object
+                        }
+                        // Remove YAML from markdown
+                        md = md.replace(/^---\n[\s\S]*?\n---/, '').trim();
+                    }
+                    // Fallback: if no tags in YAML, use article.tags property
+                    if ((!yamlTags || !yamlTags.length) && article.tags && article.tags.length) {
+                        yamlTags = article.tags;
+                    }
+
+                    // Convert markdown to HTML
+                    let html = marked.parse(md);
+
+                    // Process [[internal links]]
+                    html = html.replace(/\[\[([^\]]+)\]\]/g, (match, p1) => {
+                        const urlTitle = encodeURIComponent(p1.trim());
+                        return `<a href="article.html?title=${urlTitle}">${p1.trim()}</a>`;
+                    });
+
+                    // After marked.parse(md)
+                    let footnotes = [];
+                    let footnoteIndex = 1;
+
+                    // Replace ^[footnote text] with numbered superscript links
+                    html = html.replace(/\^\[([^\]]+)\]/g, (match, p1) => {
+                        const num = footnoteIndex++;
+                        footnotes.push({ num, text: p1 });
+                        return `<sup class="footnote"><a href="#footnote-${num}" id="ref-${num}">[${num}]</a></sup>`;
+                    });
+
+                    // At the end, add the footnote section if any footnotes exist
+                    let footnoteSection = '';
+                    if (footnotes.length) {
+                        footnoteSection = `
+                            <hr>
+                            <section class="footnotes">
+                                <h3>Footnotes</h3>
+                                <ol>
+                                    ${footnotes.map(f => 
+                                        `<li id="footnote-${f.num}">${f.text} <a href="#ref-${f.num}">&#8617;</a></li>`
+                                    ).join('')}
+                                </ol>
+                            </section>
+                        `;
+                    }
+
+                    // Prepare YAML code block if YAML exists
+                    const yamlBlock = yamlMatch
+                        ? `<pre id="yaml-section">---\n${yamlContent}\n---</pre>`
+                        : "";
+
+                    // Insert into page, always show tags section (even if empty), and show YAML if present
+                    articleDiv.innerHTML = `
+                        <div class="article-content">
+                            <h2>${article.title}</h2>
+                            <p><em>${article.subtitle}</em></p>
+                            ${yamlBlock}
+                            <div class="tags">
+                                ${yamlTags && yamlTags.length ? yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('') : '<span style="color:#aaa;">No tags</span>'}
+                            </div>
+                            <div class="full-content">${html}${footnoteSection}</div>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.log(error);
+                    articleDiv.innerHTML = "<p>Could not load article content.</p>";
+                }
+            } else {
+                articleDiv.innerHTML = "<p>Article not found.</p>";
+            }
+        })();
+    </script>
+</body>
+</html>

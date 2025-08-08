@@ -57,9 +57,10 @@
         // Main logic: fetch markdown, extract YAML, set tags, then render
         (async function() {
             const params = new URLSearchParams(window.location.search);
-            const title = params.get('title');
+            // Use mdFile as the lookup key
+            const mdFileParam = params.get('mdFile');
             const articleDiv = document.getElementById('article');
-            const article = articles.find(a => a.title === title);
+            const article = articles.find(a => a.mdFile === mdFileParam);
 
             if (article && article.mdFile) {
                 document.title = article.title;

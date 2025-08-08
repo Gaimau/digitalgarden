@@ -1,4 +1,41 @@
+---
+tags:
+  - Sprout
+  - TheUglyFirstDraft
+---
 
-So I am going to be talking about my time in the Izu Peninsula where it was so impactful for me. In general. I believe my time in the Izu Peninsula was This is so important to me is simply due to the fact that it was a first time in the stretch of practically years that my responsibilities or that the concept of my responsibilities had been boiled down and simplified. Back down into their natural state. I only cared about one thing, and that one thing was. My practice. And it's as simple as that. I didn't worry about the little... minor details of my job or a little things that upset me during the typical day, and interactions, I was simply happy to be experiencing a higher sense of peace that... was more than meditative, right? It's more than simply clearing your mind and so on and so forth, but everything, my perception of things in my.. digestion of higher models of thought, concepts and people.. were so abundantly clear that my vision had been renewed in a pure sense. The little things excited me again from seeing street signs to crosswalks. I felt unrestricted and completely free. and it was something I had not felt in such a long time. Now, to preface, I wasn't even sure I wanted to go to Japan when it was offered. However, I accepted. But in terms of actual desire and motivation to go was zero to none or next to that. And I even had thoughts about backing out of the trip because for some reason, something didn't feel right.". It felt off, I didn't feel prepared, I didn't have a plan in or itinerary . I was just gonna go to go. I had gone six years prior, and I didn't have an itinerary or a plan then. but this time felt even less organized in my own thought. So I had had doubts. However, when I got there, immediately, I was greeted by a large group of Japanese school children who are meeting people who were coming off determining all who were from different places. They had a map, and they would put a sticker for where people were coming from. And I put my little sticker down in Pennsylvania, and in my attempt at Japanese in a very broken fashion, I was able to have a great conversation with some parents and some kids about what I do, where I work. about active life I live. And it was a fruitful discussion. It was one that was. that broke the mesmerism or the concern that I didn't have anything, any purpose, anything to serve from Japan. All my interactions... are harmonious, from the sweet cafe owners to some very... culturally sound individuals. I wanted to know more about. African American culture. It was a... time where I could step back and objectively look my life. And it felt so distinct and far from me. I didn't feel like I was wrapped up in the issues of the problems. 
+Riding Test
 
-#Sprout  Testing Tags in file
+English
+First to mount a horse, you will put your left foot in the strap stand up in the strep and swing your leg over the saddle and place your other foot in the stirrup. To go forward, you will make a clicking noise with your mouth or a kissing noise and you will squeeze with your legs. To turn right you will pull the rain to the right to go left, you will pull the rain to the left. To stop you will pull the reins back equally and evenly until the horse has stopped moving. You may need to do this multiple times.
+
+To begixn, you will walk along the rail To begin, you will walk along the rail anticlockwise towards the black hay bag once you get to the hay bag, you will take a right turn and walk down the middle of the arena toward the instructor. Once you get to the instructor, you will make a circle around the instructor and when it is completed turn and face them then you will back up your horse about seven steps. To do this, you will pull back on both frames evenly in firmly until your horse begins to walk backwards. Then you will take a left, turn and walk towards the hay bag on your left. Then you will finish with the following the fence until you arrive at the point where you initially mounted the horse.
+
+German
+Test Reiten
+
+  
+
+Beim Aufsteigen auf ein Pferd stellen Sie zunächst den linken Fuß in den Riemen und schwingen Ihr Bein über den Sattel, während Sie den anderen Fuß in den Steigbügel stellen. Um vorwärts zu gehen, machen Sie ein klickendes Geräusch mit dem Mund oder ein Kussgeräusch und drücken mit den Beinen ab. Um nach rechts abzubiegen, ziehen Sie den Regen nach rechts, um nach links zu gehen, ziehen Sie den Regen nach links. Um anzuhalten, ziehen Sie die Zügel gleichmäßig zurück, bis sich das Pferd nicht mehr bewegt. Möglicherweise müssen Sie dies mehrmals tun.
+
+  
+
+Um zu beginnen, gehen Sie an der Bande entlang und gehen gegen den Uhrzeigersinn auf den schwarzen Heusack zu. Wenn du beim Ausbilder angekommen bist, drehst du dich mit dem Gesicht zum Ausbilder um und gehst mit deinem Pferd etwa sieben Schritte zurück. Dazu ziehen Sie an beiden Bügeln gleichmäßig und fest, bis Ihr Pferd rückwärts zu gehen beginnt. Dann drehen Sie sich nach links und gehen auf den Heusack zu Ihrer Linken zu. Dann folgen Sie dem Zaun, bis Sie an dem Punkt ankommen, an dem Sie das Pferd ursprünglich aufgesattelt haben.
+
+07.21. Mon
+[[Lesson 3 Very first ride (stop, start, check and release)]]
+
+07.22. Tue
+[[Lesson 6 Turns - English and Western]]
+
+07.23.Wed
+[[Lesson 7 Ask, Tell Command]]
+
+07.27.Sun
+ [[Lesson 9 Reverses and Circles]]
+
+07.28. Mon
+[[Lesson 10 First Trot]]
+
+07.31. Wed
+[[Lesson 11 Sitting Trot]]
