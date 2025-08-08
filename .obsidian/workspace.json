@@ -1,0 +1,210 @@
+{
+  "main": {
+    "id": "64286992989f20e1",
+    "type": "split",
+    "children": [
+      {
+        "id": "053beb6ba270bbf5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5c1ee2088f412ab7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Calls.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Calls"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c97eb4a7a197815e",
+    "type": "split",
+    "children": [
+      {
+        "id": "67bc6e352882bea9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d8d1efc291661826",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "54184ea7c1baf79f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "54df6d604d8af009",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "86178d4759d60936",
+    "type": "split",
+    "children": [
+      {
+        "id": "3ada395dba3cfef9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "93f4243236e36d84",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Calls.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Calls"
+            }
+          },
+          {
+            "id": "0559d6287db19aad",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Calls.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Calls"
+            }
+          },
+          {
+            "id": "07e129fb84aefad2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "2b940a9ecf99e8d2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Calls.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Calls"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "5c1ee2088f412ab7",
+  "lastOpenFiles": [
+    "index.html",
+    "article.html",
+    "indexold.html",
+    "build-and-deploy.sh",
+    "_site/index.html",
+    "_site/posts/The Izu Peninsula (Introduction) copy/index.html",
+    "_site/posts/Calls/index.html",
+    "_site/posts/Call Me/index.html",
+    "_site/posts/The Izu Peninsula (Introduction) copy",
+    "_site/posts/Calls",
+    "_site/posts/Call Me",
+    "posts/The Izu Peninsula (Introduction) copy.md",
+    "posts/Calls.md",
+    "posts/Call Me.md",
+    "node_modules/section-matter/README.md",
+    "node_modules/gray-matter/README.md",
+    "node_modules/gray-matter/CHANGELOG.md",
+    "node_modules/extend-shallow/README.md",
+    "node_modules/strip-bom-string/README.md",
+    "node_modules/is-extendable/README.md",
+    "node_modules/js-yaml/README.md",
+    "node_modules/js-yaml/CHANGELOG.md",
+    "node_modules/kind-of/README.md",
+    "node_modules/argparse/README.md",
+    "node_modules/kind-of/CHANGELOG.md",
+    "node_modules/esprima/README.md",
+    "node_modules/sprintf-js/README.md",
+    "node_modules/argparse/CHANGELOG.md",
+    "The Izu Peninsula (Introduction) copy.md",
+    "Calls.md",
+    "Call Me.md",
+    "Old Site/test.md",
+    "Old Site/speak to.md",
+    "Old Site/The Izu peninsula (Waves).md",
+    "Old Site/The Izu Peninsula (Introduction).md",
+    "itcostsmorethanyouthink.md"
+  ]
+}
