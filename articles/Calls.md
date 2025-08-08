@@ -1,7 +1,3 @@
----
-tags:
-  - Open
----
 
 Riding Test
 

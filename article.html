@@ -31,11 +31,11 @@
                 mdFile: "The Izu Peninsula (Introduction).md"
             },
             {
-                title: "Call Me",
-                tags: ["Photography"], // Will be dynamically updated from YAML
-                subtitle: "The day my viewpoint changed forever.",
-                url: "article.html?title=Call%20Me",
-                mdFile: "Call Me.md"
+                title: "Come to the Table (Part 1)",
+                tags: [], // Will be dynamically updated from YAML
+                subtitle: "",
+                url: "article.html?title=Come%20to%20the%20Table%20(Part%201)",
+                mdFile: "Come to the Table (Part 1).md"
             },
             { 
                 title: "Calls", 
@@ -67,27 +67,18 @@
                 try {
                     const response = await fetch(article.mdFile);
                     let md = await response.text();
-                    // More robust YAML front matter extraction
+                    // Extract YAML front matter
                     let yamlTags = [];
-                    let yamlMatch = md.match(/^[\s\r\n]*---\s*\n([\s\S]*?)\n---/);
-                    let yamlContent = null;
-                    if (!yamlMatch) {
-                        // Try to find YAML block anywhere in the file (less strict)
-                        yamlMatch = md.match(/---\s*\n([\s\S]*?)\n---/);
-                    }
+                    const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
                     if (yamlMatch) {
-                        yamlContent = yamlMatch[1];
-                        try {
-                            const yamlData = jsyaml.load(yamlContent);
-                            if (yamlData && yamlData.tags) {
-                                yamlTags = yamlData.tags;
-                                article.tags = yamlTags; // Set tags on the article object
-                            }
-                        } catch (e) {
-                            console.log('YAML parse error:', e);
+                        const yamlContent = yamlMatch[1];
+                        const yamlData = jsyaml.load(yamlContent);
+                        if (yamlData && yamlData.tags) {
+                            yamlTags = yamlData.tags;
+                            article.tags = yamlTags; // Set tags on the article object
                         }
                         // Remove YAML from markdown
-                        md = md.replace(/^[\s\r\n]*---\s*\n[\s\S]*?\n---/, '').trim();
+                        md = md.replace(/^---\n[\s\S]*?\n---/, '').trim();
                     }
                     // Fallback: if no tags in YAML, use article.tags property
                     if ((!yamlTags || !yamlTags.length) && article.tags && article.tags.length) {
@@ -130,11 +121,17 @@
                         `;
                     }
 
-                    // Do not render YAML block in the article output
+                    // Prepare YAML code block if YAML exists
+                    const yamlBlock = yamlMatch
+                        ? `<pre id="yaml-section">---\n${yamlContent}\n---</pre>`
+                        : "";
+
+                    // Insert into page, always show tags section (even if empty), and show YAML if present
                     articleDiv.innerHTML = `
                         <div class="article-content">
                             <h2>${article.title}</h2>
                             <p><em>${article.subtitle}</em></p>
+                            ${yamlBlock}
                             <div class="tags">
                                 ${yamlTags && yamlTags.length ? yamlTags.map(tag => `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`).join('') : '<span style="color:#aaa;">No tags</span>'}
                             </div>

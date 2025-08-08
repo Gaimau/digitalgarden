@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Tags</title>
+    <style>
+        .tag-list { margin: 20px; }
+        .tag { display: inline-block; background: #e0e0e0; color: #333; border-radius: 12px; padding: 4px 12px; font-size: 14px; margin: 4px; text-decoration: none; }
+        .article { margin: 16px 0; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>All Tags</h1>
+    <div class="tag-list"></div>
+    <div id="articles"></div>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script>
+    // List of articles with mdFile property for dynamic tag extraction
+    const articles = [
+        {
+            title: "It Costs More Than You Think",
+            mdFile: "itcostsmorethanyouthink.md"
+        },
+        {
+            title: "The Izu Peninsula (Introduction)",
+            mdFile: "The Izu Peninsula (Introduction).md"
+        },
+        {
+            title: "The Izu Peninsula (Introduction) copy",
+            mdFile: "The Izu Peninsula (Introduction) copy.md"
+        },
+        {
+            title: "Calls",
+            mdFile: "Calls.md"
+        },
+        {
+            title: "Call Me",
+            mdFile: "Call Me.md"
+        },
+        {
+            title: "The Izu peninsula (Cherry Blossoms)",
+            mdFile: "The Izu peninsula (Cherry Blossoms).md"
+        },
+        {
+            title: "The Izu peninsula (Waves)",
+            mdFile: "The Izu peninsula (Waves).md"
+        },
+        {
+            title: "test",
+            mdFile: "test.md"
+        },
+        {
+            title: "talk",
+            mdFile: "talk.md"
+        },
+        {
+            title: "speak to",
+            mdFile: "speak to.md"
+        }
+        // Add more articles as needed
+    ];
+
+    // Collect tags and also build a map of article tags for filtering
+    async function collectTagsAndArticles() {
+        const tagSet = new Set();
+        const articleTagMap = [];
+        for (const article of articles) {
+            if (article.mdFile) {
+                try {
+                    const response = await fetch(article.mdFile);
+                    const md = await response.text();
+                    const yamlMatch = md.match(/^---\n([\s\S]*?)\n---/);
+                    let tags = [];
+                    if (yamlMatch) {
+                        const yamlData = jsyaml.load(yamlMatch[1]);
+                        if (yamlData && yamlData.tags) {
+                            tags = yamlData.tags;
+                            tags.forEach(tag => tagSet.add(tag));
+                        }
+                    }
+                    articleTagMap.push({ ...article, tags });
+                } catch (e) {
+                    articleTagMap.push({ ...article, tags: [] });
+                }
+            } else {
+                articleTagMap.push({ ...article, tags: [] });
+            }
+        }
+        return { tags: Array.from(tagSet), articleTagMap };
+    }
+
+    (async function() {
+        const params = new URLSearchParams(window.location.search);
+        const tag = params.get('tag');
+        const tagListDiv = document.querySelector('.tag-list');
+        const articlesDiv = document.getElementById('articles');
+        const { tags, articleTagMap } = await collectTagsAndArticles();
+        tagListDiv.innerHTML = tags.map(tag =>
+            `<a class="tag" href="tags.html?tag=${encodeURIComponent(tag)}">${tag}</a>`
+        ).join('');
+
+        if (tag) {
+            document.title = `Tag: ${tag}`;
+            // Case-insensitive and trimmed tag matching
+            const tagNorm = tag.trim().toLowerCase();
+            const filtered = articleTagMap.filter(a =>
+                a.tags && a.tags.some(t => t && t.trim().toLowerCase() === tagNorm)
+            );
+            if (filtered.length) {
+                articlesDiv.innerHTML = `<h2>Articles tagged "${tag}"</h2>` +
+                    filtered.map(a =>
+                        `<div class="article">
+                            <a href="article.html?mdFile=${encodeURIComponent(a.mdFile)}"><strong>${a.title}</strong></a><br>
+                            <span>${a.tags.map(t => `<span class='tag'>${t}</span>`).join(' ')}</span>
+                        </div>`
+                    ).join('');
+            } else {
+                articlesDiv.innerHTML = `<h2>Articles tagged "${tag}"</h2><p>No articles found for this tag.</p>`;
+            }
+        } else {
+            articlesDiv.innerHTML = "<p>Select a tag to view related articles.</p>";
+        }
+    })();
+    </script>
+</body>
+</html>
