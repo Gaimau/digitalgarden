@@ -1,3 +1,9 @@
+---
+tags:
+  - Matured
+  - Cooking
+  - Improvement
+---
 
 _Note: I will be using "meals" and "stories" interchangeably throughout this piece._
 
