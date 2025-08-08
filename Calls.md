@@ -1,7 +1,6 @@
 ---
 tags:
-  - Sprout
-  - TheUglyFirstDraft
+  - open
 ---
 
 Riding Test

@@ -1,2 +1,0 @@
-# digitalgarden
-A Digital Garden
