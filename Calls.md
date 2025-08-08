@@ -1,6 +1,5 @@
 ---
 tags:
-  - open
 ---
 
 Riding Test
