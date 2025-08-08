@@ -1,6 +1,3 @@
----
-tags:
----
 
 Riding Test
 
